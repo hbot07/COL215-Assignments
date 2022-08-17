@@ -24,16 +24,15 @@ Fill colour options = ['red', 'blue', 'green', 'yellow']
 Sample code for the example given in the slide
 """
 
-root = kmap([[0,1,1,0], ['x',1,'x',0], [1,0,0,0], [1,'x',0,0]])
-root.draw_region(0,1,1,2,'blue')
-root.draw_region(3,3,3,0,'green')
+root = kmap([[0, 1, 1, 0], ['x', 1, 'x', 0], [1, 0, 0, 0], [1, 'x', 0, 0]])
+root.draw_region(0, 1, 1, 2, 'blue')
+root.draw_region(3, 3, 3, 0, 'green')
 root.mainloop()
-
 
 """
 Sample code for the displaying wrap region
 """
-root = kmap([[0,1,1,0], ['x',1,'x',0], [1,0,0,0], [1,'x',0,0]])
-root.draw_region(1,3,2,0,'blue')
-root.draw_region(3,0,0,3,'green')
+root = kmap([[0, 1, 1, 0], ['x', 1, 'x', 0], [1, 0, 0, 0], [1, 'x', 0, 0]])
+root.draw_region(1, 3, 2, 0, 'blue')
+root.draw_region(3, 0, 0, 3, 'green')
 root.mainloop()

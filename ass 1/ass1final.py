@@ -75,7 +75,6 @@ def get_coordinates(kmap_function, term):
                 X += 0
                 X2 = 2
         else:
-            X2 = 3
             if term[1] == 0:
                 X = 3
                 X2 = 0
@@ -158,4 +157,5 @@ def is_legal_region(kmap_function, term):
 """
     pass
 
-print(is_legal_region([[0,1,1,0], ['x',1,'x',0]],[None,None,None]))
+print(is_legal_region([[0,1,1,0], ['x',1,'x',0], [1,0,0,0], [1,'x',0,0]],[0,0,None,1]))
+print(get_coordinates([], [None, None, None]))

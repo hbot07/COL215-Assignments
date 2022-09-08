@@ -15,20 +15,51 @@ def expandBinaryFunc(func_binary):
     return answer
 
 
+def newExpand(func_binary):
+    answer = {}
+    for term in func_binary:
+        temp = term.copy()
+        for i in range(len(temp)):
+            if temp[i] is None:
+                continue
+            temp[i] = not temp[i]
+            if temp in func_binary:
+                temp2 = temp.copy()
+                temp2[i] = None
+                if temp2 not in answer:
+                    answer[temp2] = [temp]
+                else:
+                    if temp2 not in answer[temp2]:
+                        answer[temp2].append(temp)
+            temp[i] = not temp[i]
+    return answer
+
+
+def binaryToTerm(binary_term):
+    term = ""
+    for i in range(len(binary_term)):
+        if binary_term[i] is None:
+            continue
+
+        if binary_term[i]:
+            term += chr(97 + i)
+        else:
+            term += chr(97 + i) + "'"
+    return term
+
+
 def getTermFromBinaryList(binaryList):
     termList = []
     for binary_term in binaryList:
-        term = ""
-        for i in range(len(binary_term)):
-            if binary_term[i] is None:
-                continue
-
-            if binary_term[i]:
-                term += chr(97 + i)
-            else:
-                term += chr(97 + i) + "'"
-        termList.append(term)
+        termList.append(binaryToTerm(binary_term))
     return termList
+
+
+def getTermFromBinaryDict(binaryDict):
+    termDict = {}
+    for i in binaryDict.keys():
+        termDict[binaryToTerm(i)] = [binaryToTerm(j) for j in binaryDict[i]]
+    return termDict
 
 
 alphabets = {}
@@ -69,37 +100,7 @@ def combine(func):
         if len(sub_answer) in {0, 1}:
             break
 
-    return getTermFromBinaryList(answer)
-
-
-def reduce(func, true):
-    # func_copy = func.copy()
-    # true_copy = true.copy()
-    # for i in range(len(func_copy)):
-    #     adds_value = False
-    #     if func_copy[i] is None:
-    #         continue
-    #     for j in range(len(true_copy)):
-    #         if true_copy[j] is None:
-    #             continue
-    #         if func_copy[i] is None:
-    #             continue
-    #
-    #         if func_copy[i] in true_copy[j]:
-    #             adds_value = True
-    #             true_copy[j] = None
-    #
-    #     if not adds_value:
-    #         func_copy[i] = None
-    # return [term for term in (func_copy + true_copy) if term is not None]
-    print(func, true)
-    expanded_terms = {}
-    for term1 in func:
-        for term2 in true:
-            if term1 in term2:
-                if term2 not in expanded_terms.keys():
-                    expanded_terms[term2] = term1
-    return expanded_terms
+    return getTermFromBinaryDict(answer)
 
 
 def comb_function_expansion(func_TRUE, func_DC):
@@ -113,12 +114,12 @@ def comb_function_expansion(func_TRUE, func_DC):
     """
     func = func_TRUE + func_DC
 
+    # constructing the alphabets dictionary mapping a,b,c... to 1,2,3...
     for i in range(26):
         alphabets[chr(97 + i)] = i
 
-    rev = combine(func).copy()
-    rev.reverse()
-    return reduce(rev, func_TRUE)
+    rev = combine(func)
+    return rev
 
 
 print(comb_function_expansion(["a'bc'd'", "abc'd'", "a'b'c'd", "a'bc'd", "a'b'cd"],

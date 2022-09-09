@@ -1148,5 +1148,7 @@ for j in range(100):
         ans = L[i][2]
         if ans == comb_function_expansion(TRUE, DC):
             count += 1
+            if count % 1000 == 0:
+                print("func_TRUE =", TRUE, "func_DC =", DC, "Output:", ans)
 print(count // 100)
 print(datetime.now() - start)

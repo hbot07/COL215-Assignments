@@ -68,23 +68,6 @@ def expand(binary_func_TRUE, binary_func_DC=[]):
     return output
 
 
-def combine(expanded_terms, func_TRUE):
-    # print(func_TRUE, expanded_terms)
-    combined = []
-    for term in func_TRUE:
-        expanded = False
-        for expanded_term in expanded_terms:
-            # print(term, expanded_term, expanded_term in term)
-            if expanded_term in term:
-                combined.append(expanded_term)
-                # print("appended", expanded_term)
-                expanded = True
-                break
-        if not expanded:
-            combined.append(term)
-    return combined
-
-
 def contained(expanded_binary, binary_term):
     for i in range(len(expanded_binary)):
         if expanded_binary[i] is not None:
@@ -131,8 +114,6 @@ def comb_function_expansion(func_TRUE, func_DC):
     binary_func_DC = [term_to_binary(term, term_max_len) for term in func_DC]
 
     expanded_binary = expand(binary_func_TRUE, binary_func_DC)
-    expanded_terms = [binary_to_term(binary) for binary in expanded_binary]
-    combined_terms = combine(expanded_terms, func_TRUE)
     binary_combined = binary_combine(expanded_binary, binary_func_TRUE)
 
     return [binary_to_term(term) for term in binary_combined]
